@@ -1,4 +1,4 @@
-package com.simplecommandtimer;
+package com.siberanka.simplecommantimer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;

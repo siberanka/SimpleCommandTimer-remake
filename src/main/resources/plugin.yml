@@ -1,8 +1,8 @@
 name: SimpleCommandTimer
-main: com.simplecommandtimer.SimpleCommandTimerPlugin
+main: com.siberanka.simplecommantimer.SimpleCommandTimerPlugin
 version: 1.0.0
 api-version: 1.16
-authors: [MSI]
+author: siberanka
 folia-supported: true
 commands:
   sctimer:

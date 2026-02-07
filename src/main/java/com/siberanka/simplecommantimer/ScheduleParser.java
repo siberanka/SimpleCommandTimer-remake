@@ -1,4 +1,4 @@
-package com.simplecommandtimer;
+package com.siberanka.simplecommantimer;
 
 import java.text.Normalizer;
 import java.time.DayOfWeek;

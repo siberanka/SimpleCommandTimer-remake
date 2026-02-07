@@ -1,4 +1,4 @@
-package com.simplecommandtimer;
+package com.siberanka.simplecommantimer;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,13 +13,15 @@ import java.util.List;
 public final class SimpleCommandTimerPlugin extends JavaPlugin {
     private CommandSchedulerEngine schedulerEngine;
     private ServerDispatcher dispatcher;
+    private DiscordWebhookService webhookService;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
 
         dispatcher = new ServerDispatcher(this);
-        schedulerEngine = new CommandSchedulerEngine(this, dispatcher);
+        webhookService = new DiscordWebhookService(this);
+        schedulerEngine = new CommandSchedulerEngine(this, dispatcher, webhookService);
 
         PluginCommand pluginCommand = getCommand("sctimer");
         if (pluginCommand != null) {
@@ -33,6 +35,9 @@ public final class SimpleCommandTimerPlugin extends JavaPlugin {
     public void onDisable() {
         if (schedulerEngine != null) {
             schedulerEngine.stop();
+        }
+        if (webhookService != null) {
+            webhookService.shutdown();
         }
     }
 
@@ -77,6 +82,10 @@ public final class SimpleCommandTimerPlugin extends JavaPlugin {
             getLogger().severe("Failed to load command schedules: " + ex.getMessage());
             configuredCommands = java.util.Collections.emptyList();
         }
+
+        boolean discordWebhookEnabled = config.getBoolean("discord-webhook", false);
+        String webhookUrl = config.getString("webhook-url", "");
+        webhookService.updateSettings(discordWebhookEnabled, webhookUrl);
 
         schedulerEngine.start(zoneId, configuredCommands);
         getLogger().info("Loaded " + configuredCommands.size() + " command group(s) with timezone " + zoneId + ".");

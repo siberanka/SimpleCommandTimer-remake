@@ -1,4 +1,4 @@
-package com.simplecommandtimer;
+package com.siberanka.simplecommantimer;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,6 +26,7 @@ public final class ConfigLoader {
 
             List<String> commands = section.getStringList("command");
             List<String> scheduleRaw = section.getStringList("schedule");
+            List<String> embedMessage = section.getStringList("embed-message");
 
             if (commands.isEmpty() || scheduleRaw.isEmpty()) {
                 continue;
@@ -43,7 +44,7 @@ public final class ConfigLoader {
                 continue;
             }
 
-            results.add(new ConfiguredCommand(key, commands, schedules));
+            results.add(new ConfiguredCommand(key, commands, schedules, embedMessage));
         }
 
         return results;
