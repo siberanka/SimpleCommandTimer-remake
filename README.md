@@ -1,4 +1,4 @@
-﻿# SimpleCommandTimer
+# SimpleCommandTimer
 
 ## English
 SimpleCommandTimer is a command scheduler plugin for Paper `1.16 - 1.21.x` and Folia `1.21.1`.
@@ -18,7 +18,7 @@ mvn clean package
 ```
 
 ### Output
-- `target/SimpleCommandTimer-1.0.1.jar`
+- `target/SimpleCommandTimer-1.0.2.jar`
 
 ### Command
 - `/sctimer reload`
@@ -44,10 +44,11 @@ mvn clean package
 ```
 
 ### Cikti
-- `target/SimpleCommandTimer-1.0.1.jar`
+- `target/SimpleCommandTimer-1.0.2.jar`
 
 ### Komut
 - `/sctimer reload`
 
 ### Konfig
 Tam ornek format icin `src/main/resources/config.yml` dosyasina bakin.
+
