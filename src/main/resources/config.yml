@@ -1,0 +1,38 @@
+# Modifies the name of the plugin you point to. / Cambia el nombre del plugin que se muestra.
+plugin_name: '&fꡀ &x&4&b&4&b&4&9▶ '
+
+# Changes the time zone for scheduling commands by day and time. / Cambia la zona horaria para programar comandos por día y hora.
+time-zone: 'Europe/Istanbul' # Use a valid Java time zone identifier from java.time.ZoneId. / Usa un identificador de zona horaria válido de java.time.ZoneId.
+
+# ======================
+# Day in Spanish      Day in English     Example usage
+# Lunes               daily              daily; 12:00:00
+# Martes              TUESDAY            TUESDAY; 11:00:00
+# Miércoles           WEDNESDAY          WEDNESDAY; 14:30:00
+# Jueves              THURSDAY           THURSDAY; 16:45:00
+# Viernes             FRIDAY             FRIDAY; 09:15:00
+# Sábado              SATURDAY           SATURDAY; 20:00:00
+# Domingo             SUNDAY             SUNDAY; 22:10:00
+# Diario              DAILY              DAILY; 04:00:00
+# ======================
+
+Commands:
+  daily_04_00:
+    command:
+      - 'say Daily command fired at 04:00:00'
+    schedule:
+      - 'DAILY; 04:00:00'
+
+  friday_reward:
+    command:
+      - 'say Weekly reward command fired'
+    schedule:
+      - 'FRIDAY; 19:30:00'
+
+Lang:
+  Error_alert: '&cGönderilemedi, bir şey yazmalı veya yetkiye sahip olmalısın.!'
+  Console_alert: '&cBu komut konsoldan çalıştırılamaz.'
+
+# Modify the permissions as you prefer. / Modifica los permisos según prefieras.
+Permission:
+  scTimer_permission: 'sctimer.admin'

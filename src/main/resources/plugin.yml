@@ -1,0 +1,13 @@
+name: SimpleCommandTimer
+main: com.simplecommandtimer.SimpleCommandTimerPlugin
+version: 1.0.0
+api-version: 1.16
+authors: [MSI]
+folia-supported: true
+commands:
+  sctimer:
+    description: Reloads the SimpleCommandTimer configuration
+    usage: /sctimer reload
+permissions:
+  sctimer.admin:
+    default: op
