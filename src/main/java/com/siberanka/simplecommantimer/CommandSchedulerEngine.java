@@ -74,6 +74,23 @@ public final class CommandSchedulerEngine {
         }
     }
 
+    public boolean triggerEntryNow(String entryId) {
+        if (entryId == null || entryId.trim().isEmpty()) {
+            return false;
+        }
+
+        List<ConfiguredCommand> commandsSnapshot = configuredCommands;
+        for (ConfiguredCommand configuredCommand : commandsSnapshot) {
+            if (configuredCommand.getId().equalsIgnoreCase(entryId.trim())) {
+                dispatcher.dispatchCommands(configuredCommand.getCommands());
+                webhookService.sendEmbedForEntry(configuredCommand);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void tick() {
         try {
             Instant now = Instant.now();

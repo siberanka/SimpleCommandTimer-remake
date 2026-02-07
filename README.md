@@ -18,7 +18,7 @@ mvn clean package
 ```
 
 ### Output
-- `target/SimpleCommandTimer-1.0.0.jar`
+- `target/SimpleCommandTimer-1.0.1.jar`
 
 ### Command
 - `/sctimer reload`
@@ -44,7 +44,7 @@ mvn clean package
 ```
 
 ### Cikti
-- `target/SimpleCommandTimer-1.0.0.jar`
+- `target/SimpleCommandTimer-1.0.1.jar`
 
 ### Komut
 - `/sctimer reload`

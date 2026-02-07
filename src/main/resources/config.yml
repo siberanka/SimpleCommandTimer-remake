@@ -1,14 +1,14 @@
 # ==================================================
-# SimpleCommandTimer Configuration / Konfigürasyonu
+# SimpleCommandTimer Configuration / Konfigurasyonu
 # ==================================================
 # EN: This file controls scheduled command execution.
-# TR: Bu dosya zamanlanmış komutların çalıştırılmasını yönetir.
+# TR: Bu dosya zamanlanmis komutlarin calistirilmasini yonetir.
 
 # --------------------------------------------------
 # plugin_name
 # --------------------------------------------------
 # EN: Prefix used in plugin messages (supports color codes with &).
-# TR: Eklenti mesajlarında kullanılan önek (renk kodlarını & ile destekler).
+# TR: Eklenti mesajlarinda kullanilan on ek (renk kodlarini & ile destekler).
 plugin_name: '&7[SimpleCommandTimer] '
 
 # --------------------------------------------------
@@ -16,15 +16,15 @@ plugin_name: '&7[SimpleCommandTimer] '
 # --------------------------------------------------
 # EN: Time zone used for schedule calculations. Must be a valid Java ZoneId.
 # EN: Example: UTC, Europe/Istanbul, America/New_York
-# TR: Zamanlama hesaplamalarında kullanılacak saat dilimi. Geçerli bir Java ZoneId olmalı.
-# TR: Örnek: UTC, Europe/Istanbul, America/New_York
+# TR: Zamanlama hesaplamalarinda kullanilacak saat dilimi. Gecerli bir Java ZoneId olmali.
+# TR: Ornek: UTC, Europe/Istanbul, America/New_York
 time-zone: 'UTC'
 
 # --------------------------------------------------
 # discord-webhook
 # --------------------------------------------------
 # EN: Enable/disable Discord webhook embed sending for entries.
-# TR: Entry'ler için Discord webhook embed gönderimini açar/kapatır.
+# TR: Entry'ler icin Discord webhook embed gonderimini acar/kapatir.
 discord-webhook: false
 
 # --------------------------------------------------
@@ -35,13 +35,13 @@ discord-webhook: false
 webhook-url: ''
 
 # ==================================================
-# Commands Section / Komutlar Bölümü
+# Commands Section / Komutlar Bolumu
 # ==================================================
 # EN: Add all scheduled entries under "Commands".
-# TR: Tüm zamanlanmış entry'leri "Commands" altında ekleyin.
+# TR: Tum zamanlanmis entry'leri "Commands" altina ekleyin.
 #
 # EN: Entry format:
-# TR: Entry formatı:
+# TR: Entry formati:
 #
 # Commands:
 #   your_entry_id:
@@ -54,35 +54,54 @@ webhook-url: ''
 #     embed-message:
 #       - 'Optional Discord embed line 1'
 #       - 'Optional Discord embed line 2'
+#     webhook-color: '#ffffff'
 #
 # EN: Notes for "command":
 # EN: - Each list item is dispatched from console.
 # EN: - Do not include leading slash (/).
-# TR: "command" notları:
-# TR: - Listedeki her satır konsoldan çalıştırılır.
-# TR: - Başına / koymayın.
+# TR: "command" notlari:
+# TR: - Listedeki her satir konsoldan calistirilir.
+# TR: - Basina / koymayin.
 #
 # EN: Notes for "schedule":
 # EN: - Format is DAY; HH:mm:ss
 # EN: - Supported day values:
 # EN:   DAILY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
 # EN: - Spanish day aliases are also accepted (LUNES, MARTES, ...).
-# TR: "schedule" notları:
+# TR: "schedule" notlari:
 # TR: - Format DAY; HH:mm:ss
-# TR: - Desteklenen gün değerleri:
+# TR: - Desteklenen gun degerleri:
 # TR:   DAILY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
-# TR: - İspanyolca gün takma adları da desteklenir (LUNES, MARTES, ...).
+# TR: - Ispanyolca gun takma adlari da desteklenir (LUNES, MARTES, ...).
 #
 # EN: Notes for "embed-message":
 # EN: - If discord-webhook=true and webhook-url is valid, these lines are sent as one embed description.
 # EN: - Use [] to disable embed sending for that entry.
-# TR: "embed-message" notları:
-# TR: - discord-webhook=true ve webhook-url geçerliyse bu satırlar tek embed açıklaması olarak gönderilir.
-# TR: - İlgili entry için embed kapatmak istiyorsanız [] kullanın.
+# TR: "embed-message" notlari:
+# TR: - discord-webhook=true ve webhook-url gecerliyse bu satirlar tek embed aciklamasi olarak gonderilir.
+# TR: - Ilgili entry icin embed kapatmak istiyorsaniz [] kullanin.
+#
+# EN: Notes for "webhook-color":
+# EN: - Per-entry embed color in HEX format (#RRGGBB).
+# EN: - Example: '#ffffff', '#00ff99', '#ff0000'
+# EN: - If invalid/empty, Discord default color is used.
+# TR: "webhook-color" notlari:
+# TR: - Entry bazli embed rengi HEX formatinda (#RRGGBB).
+# TR: - Ornek: '#ffffff', '#00ff99', '#ff0000'
+# TR: - Gecersiz/bos ise Discord varsayilan rengi kullanilir.
+#
+# EN: Manual trigger command:
+# EN: - /sctimer trigger <entry_id>
+# EN: - Runs the selected entry immediately.
+# EN: - Does NOT mark the daily scheduler state, so routine time execution still runs normally.
+# TR: Manuel tetikleme komutu:
+# TR: - /sctimer trigger <entry_id>
+# TR: - Secilen entry'yi aninda calistirir.
+# TR: - Gunluk scheduler durumunu isaretlemez, bu nedenle saati geldiginde normal sekilde tekrar calisir.
 
 Commands:
   # EN: Runs every day at 23:59:59.
-  # TR: Her gün 23:59:59'da çalışır.
+  # TR: Her gun 23:59:59'da calisir.
   daily_restart_notice:
     command:
       - 'say Server restart in 1 minute.'
@@ -90,9 +109,10 @@ Commands:
       - 'DAILY; 23:59:59'
     embed-message:
       - 'Daily restart notice executed at 23:59:59.'
+    webhook-color: '#ffffff'
 
   # EN: Runs on Friday evening.
-  # TR: Cuma akşamı çalışır.
+  # TR: Cuma aksami calisir.
   friday_reward:
     command:
       - 'say Weekly reward event started!'
@@ -100,11 +120,12 @@ Commands:
     schedule:
       - 'FRIDAY; 20:30:00'
     embed-message: []
+    webhook-color: '#ffffff'
 
   # EN: Example with multiple schedules in one entry.
   # EN: Same command block runs at both times below.
-  # TR: Tek entry içinde birden fazla schedule örneği.
-  # TR: Aşağıdaki iki saatte aynı komut bloğu çalışır.
+  # TR: Tek entry icinde birden fazla schedule ornegi.
+  # TR: Asagidaki iki saatte ayni komut blogu calisir.
   two_times_daily:
     command:
       - 'say This task runs twice a day.'
@@ -113,12 +134,13 @@ Commands:
       - 'DAILY; 18:00:00'
     embed-message:
       - 'two_times_daily entry executed.'
+    webhook-color: '#ffffff'
 
 # --------------------------------------------------
 # Lang
 # --------------------------------------------------
 # EN: Messages used by plugin command responses.
-# TR: Eklenti komut yanıtlarında kullanılan mesajlar.
+# TR: Eklenti komut yanitlarinda kullanilan mesajlar.
 Lang:
   Error_alert: '&cYou do not have permission.'
   Console_alert: '&cThis command cannot be used from console.'
@@ -127,6 +149,7 @@ Lang:
 # Permission
 # --------------------------------------------------
 # EN: Permission node required for /sctimer commands.
-# TR: /sctimer komutları için gerekli yetki nodu.
+# TR: /sctimer komutlari icin gerekli yetki nodu.
 Permission:
   scTimer_permission: 'sctimer.admin'
+

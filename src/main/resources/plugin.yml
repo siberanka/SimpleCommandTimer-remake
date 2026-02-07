@@ -1,13 +1,13 @@
 name: SimpleCommandTimer
 main: com.siberanka.simplecommantimer.SimpleCommandTimerPlugin
-version: 1.0.0
+version: 1.0.1
 api-version: 1.16
 author: siberanka
 folia-supported: true
 commands:
   sctimer:
-    description: Reloads the SimpleCommandTimer configuration
-    usage: /sctimer reload
+    description: Reloads config or manually triggers an entry
+    usage: /sctimer reload | /sctimer trigger <entry_id>
 permissions:
   sctimer.admin:
     default: op

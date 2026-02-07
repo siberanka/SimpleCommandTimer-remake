@@ -27,6 +27,10 @@ public final class ConfigLoader {
             List<String> commands = section.getStringList("command");
             List<String> scheduleRaw = section.getStringList("schedule");
             List<String> embedMessage = section.getStringList("embed-message");
+            String webhookColor = section.getString("webhook-color", "#ffffff");
+            if (webhookColor == null || webhookColor.trim().isEmpty()) {
+                webhookColor = "#ffffff";
+            }
 
             if (commands.isEmpty() || scheduleRaw.isEmpty()) {
                 continue;
@@ -44,7 +48,7 @@ public final class ConfigLoader {
                 continue;
             }
 
-            results.add(new ConfiguredCommand(key, commands, schedules, embedMessage));
+            results.add(new ConfiguredCommand(key, commands, schedules, embedMessage, webhookColor));
         }
 
         return results;

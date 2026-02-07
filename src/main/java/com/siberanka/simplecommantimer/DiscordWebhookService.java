@@ -64,7 +64,8 @@ public final class DiscordWebhookService {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                sendWithRetry(configuredCommand.getId(), description);
+                Integer color = parseHexColor(configuredCommand.getWebhookColor());
+                sendWithRetry(configuredCommand.getId(), description, color);
             }
         });
     }
@@ -73,11 +74,11 @@ public final class DiscordWebhookService {
         executor.shutdownNow();
     }
 
-    private void sendWithRetry(String entryId, String description) {
+    private void sendWithRetry(String entryId, String description, Integer color) {
         Exception lastException = null;
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
             try {
-                int code = postWebhook(entryId, description);
+                int code = postWebhook(entryId, description, color);
                 if (code >= 200 && code < 300) {
                     return;
                 }
@@ -101,7 +102,7 @@ public final class DiscordWebhookService {
         }
     }
 
-    private int postWebhook(String entryId, String description) throws Exception {
+    private int postWebhook(String entryId, String description, Integer color) throws Exception {
         HttpURLConnection connection = (HttpURLConnection) new URL(webhookUrl).openConnection();
         connection.setRequestMethod("POST");
         connection.setConnectTimeout(5000);
@@ -109,7 +110,7 @@ public final class DiscordWebhookService {
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
-        String payload = buildPayload(entryId, description);
+        String payload = buildPayload(entryId, description, color);
         byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
 
         OutputStream outputStream = connection.getOutputStream();
@@ -130,14 +131,52 @@ public final class DiscordWebhookService {
         return responseCode;
     }
 
-    private String buildPayload(String entryId, String description) {
+    private String buildPayload(String entryId, String description, Integer color) {
         StringBuilder builder = new StringBuilder();
         builder.append("{\"embeds\":[{");
         builder.append("\"title\":\"").append(escapeJson("SimpleCommandTimer - " + entryId)).append("\",");
         builder.append("\"description\":\"").append(escapeJson(description)).append("\",");
+        if (color != null) {
+            builder.append("\"color\":").append(color.intValue()).append(",");
+        }
         builder.append("\"timestamp\":\"").append(Instant.now().toString()).append("\"");
         builder.append("}]}");
         return builder.toString();
+    }
+
+    private Integer parseHexColor(String value) {
+        if (value == null) {
+            return null;
+        }
+
+        String normalized = value.trim();
+        if (normalized.isEmpty()) {
+            return null;
+        }
+
+        if (normalized.startsWith("#")) {
+            normalized = normalized.substring(1);
+        }
+
+        if (normalized.length() != 6) {
+            return null;
+        }
+
+        for (int i = 0; i < normalized.length(); i++) {
+            char c = normalized.charAt(i);
+            boolean hex = (c >= '0' && c <= '9')
+                    || (c >= 'a' && c <= 'f')
+                    || (c >= 'A' && c <= 'F');
+            if (!hex) {
+                return null;
+            }
+        }
+
+        try {
+            return Integer.valueOf(Integer.parseInt(normalized, 16));
+        } catch (NumberFormatException ex) {
+            return null;
+        }
     }
 
     private String joinLines(List<String> lines) {

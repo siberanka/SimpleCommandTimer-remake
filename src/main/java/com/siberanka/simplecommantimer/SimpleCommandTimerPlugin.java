@@ -59,13 +59,29 @@ public final class SimpleCommandTimerPlugin extends JavaPlugin {
             return true;
         }
 
-        sender.sendMessage(colorize(prefix() + "&eUsage: /sctimer reload"));
+        if (args.length == 2 && "trigger".equalsIgnoreCase(args[0])) {
+            String entryId = args[1];
+            boolean triggered = schedulerEngine.triggerEntryNow(entryId);
+            if (triggered) {
+                sender.sendMessage(colorize(prefix() + "&aTriggered entry: &f" + entryId));
+            } else {
+                sender.sendMessage(colorize(prefix() + "&cEntry not found: &f" + entryId));
+            }
+            return true;
+        }
+
+        sender.sendMessage(colorize(prefix() + "&eUsage: /sctimer reload | /sctimer trigger <entry_id>"));
         return true;
     }
 
     private void reloadAndStart() {
         reloadConfig();
         FileConfiguration config = getConfig();
+        boolean configChanged = ConfigIntegrityService.ensure(config);
+        if (configChanged) {
+            saveConfig();
+            getLogger().info("Config integrity check added missing values with defaults.");
+        }
 
         ZoneId zoneId;
         try {
