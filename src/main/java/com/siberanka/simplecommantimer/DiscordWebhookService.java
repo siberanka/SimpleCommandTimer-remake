@@ -78,7 +78,7 @@ public final class DiscordWebhookService {
         Exception lastException = null;
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
             try {
-                int code = postWebhook(entryId, description, color);
+                int code = postWebhook(description, color);
                 if (code >= 200 && code < 300) {
                     return;
                 }
@@ -102,7 +102,7 @@ public final class DiscordWebhookService {
         }
     }
 
-    private int postWebhook(String entryId, String description, Integer color) throws Exception {
+    private int postWebhook(String description, Integer color) throws Exception {
         HttpURLConnection connection = (HttpURLConnection) new URL(webhookUrl).openConnection();
         connection.setRequestMethod("POST");
         connection.setConnectTimeout(5000);
@@ -110,7 +110,7 @@ public final class DiscordWebhookService {
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
-        String payload = buildPayload(entryId, description, color);
+        String payload = buildPayload(description, color);
         byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
 
         OutputStream outputStream = connection.getOutputStream();
@@ -131,10 +131,10 @@ public final class DiscordWebhookService {
         return responseCode;
     }
 
-    private String buildPayload(String entryId, String description, Integer color) {
+    private String buildPayload(String description, Integer color) {
         StringBuilder builder = new StringBuilder();
         builder.append("{\"embeds\":[{");
-        builder.append("\"title\":\"").append(escapeJson("SimpleCommandTimer - " + entryId)).append("\",");
+        builder.append("\"title\":\"").append(escapeJson("webhook-message")).append("\",");
         builder.append("\"description\":\"").append(escapeJson(description)).append("\",");
         if (color != null) {
             builder.append("\"color\":").append(color.intValue()).append(",");

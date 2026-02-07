@@ -18,7 +18,7 @@ mvn clean package
 ```
 
 ### Output
-- `target/SimpleCommandTimer-1.0.2.jar`
+- `target/SimpleCommandTimer-1.0.4.jar`
 
 ### Command
 - `/sctimer reload`
@@ -44,11 +44,12 @@ mvn clean package
 ```
 
 ### Cikti
-- `target/SimpleCommandTimer-1.0.2.jar`
+- `target/SimpleCommandTimer-1.0.4.jar`
 
 ### Komut
 - `/sctimer reload`
 
 ### Konfig
 Tam ornek format icin `src/main/resources/config.yml` dosyasina bakin.
+
 
