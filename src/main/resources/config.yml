@@ -1,261 +1,132 @@
-#
-#                   $$$$$$$$\ $$\
-#                   \__$$  __|\__|
-#   $$$$$$$\  $$$$$$$\ $$ |   $$\ $$$$$$\$$$$\   $$$$$$\   $$$$$$\
-#  $$  _____|$$  _____|$$ |   $$ |$$  _$$  _$$\ $$  __$$\ $$  __$$\
-#  \$$$$$$\  $$ /      $$ |   $$ |$$ / $$ / $$ |$$$$$$$$ |$$ |  \__|
-#   \____$$\ $$ |      $$ |   $$ |$$ | $$ | $$ |$$   ____|$$ |
-#  $$$$$$$  |\$$$$$$$\ $$ |   $$ |$$ | $$ | $$ |\$$$$$$$\ $$ |
-#  \_______/  \_______|\__|   \__|\__| \__| \__| \_______|\__|
-#
-# Plugin coded by me, Anyelo120. If you have any suggestions or wish to report bugs, you can join our Discord: https://discord.gg/Fx9RbChAG5
-# Plugin desarrollado por Anyelo120. Si tienes sugerencias o deseas reportar errores, unete a nuestro Discord: https://discord.gg/Fx9RbChAG5
+# ==================================================
+# SimpleCommandTimer Configuration / Konfigürasyonu
+# ==================================================
+# EN: This file controls scheduled command execution.
+# TR: Bu dosya zamanlanmış komutların çalıştırılmasını yönetir.
 
-# Modifies the name of the plugin you point to. / Cambia el nombre del plugin que se muestra.
-plugin_name: '&fꡀ &x&4&b&4&b&4&9▶ '
+# --------------------------------------------------
+# plugin_name
+# --------------------------------------------------
+# EN: Prefix used in plugin messages (supports color codes with &).
+# TR: Eklenti mesajlarında kullanılan önek (renk kodlarını & ile destekler).
+plugin_name: '&7[SimpleCommandTimer] '
 
-# Changes the time zone for scheduling commands by day and time. / Cambia la zona horaria para programar comandos por dia y hora.
-time-zone: 'Europe/Istanbul' # Use a valid Java time zone identifier from java.time.ZoneId. / Usa un identificador de zona horaria valido de java.time.ZoneId.
+# --------------------------------------------------
+# time-zone
+# --------------------------------------------------
+# EN: Time zone used for schedule calculations. Must be a valid Java ZoneId.
+# EN: Example: UTC, Europe/Istanbul, America/New_York
+# TR: Zamanlama hesaplamalarında kullanılacak saat dilimi. Geçerli bir Java ZoneId olmalı.
+# TR: Örnek: UTC, Europe/Istanbul, America/New_York
+time-zone: 'UTC'
 
-# Enables Discord webhook embed sending.
-discord-webhook: true
+# --------------------------------------------------
+# discord-webhook
+# --------------------------------------------------
+# EN: Enable/disable Discord webhook embed sending for entries.
+# TR: Entry'ler için Discord webhook embed gönderimini açar/kapatır.
+discord-webhook: false
+
+# --------------------------------------------------
+# webhook-url
+# --------------------------------------------------
+# EN: Discord webhook URL. Required only if discord-webhook is true.
+# TR: Discord webhook adresi. Sadece discord-webhook true ise gereklidir.
 webhook-url: ''
 
-# ======================
-# Day in Spanish      Day in English     Example usage
-# Lunes               daily             daily; 12:00:00
-# Martes              TUESDAY            TUESDAY; 11:00:00
-# Miercoles           WEDNESDAY          WEDNESDAY; 14:30:00
-# Jueves              THURSDAY           THURSDAY; 16:45:00
-# Viernes             FRIDAY             FRIDAY; 09:15:00
-# Sabado              SATURDAY           SATURDAY; 20:00:00
-# Domingo             SUNDAY             SUNDAY; 22:10:00
-# Diario              DAILY              DAILY; 04:00:00
-# ======================
+# ==================================================
+# Commands Section / Komutlar Bölümü
+# ==================================================
+# EN: Add all scheduled entries under "Commands".
+# TR: Tüm zamanlanmış entry'leri "Commands" altında ekleyin.
+#
+# EN: Entry format:
+# TR: Entry formatı:
+#
+# Commands:
+#   your_entry_id:
+#     command:
+#       - 'first command'
+#       - 'second command'
+#     schedule:
+#       - 'DAILY; 12:00:00'
+#       - 'FRIDAY; 18:30:00'
+#     embed-message:
+#       - 'Optional Discord embed line 1'
+#       - 'Optional Discord embed line 2'
+#
+# EN: Notes for "command":
+# EN: - Each list item is dispatched from console.
+# EN: - Do not include leading slash (/).
+# TR: "command" notları:
+# TR: - Listedeki her satır konsoldan çalıştırılır.
+# TR: - Başına / koymayın.
+#
+# EN: Notes for "schedule":
+# EN: - Format is DAY; HH:mm:ss
+# EN: - Supported day values:
+# EN:   DAILY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+# EN: - Spanish day aliases are also accepted (LUNES, MARTES, ...).
+# TR: "schedule" notları:
+# TR: - Format DAY; HH:mm:ss
+# TR: - Desteklenen gün değerleri:
+# TR:   DAILY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+# TR: - İspanyolca gün takma adları da desteklenir (LUNES, MARTES, ...).
+#
+# EN: Notes for "embed-message":
+# EN: - If discord-webhook=true and webhook-url is valid, these lines are sent as one embed description.
+# EN: - Use [] to disable embed sending for that entry.
+# TR: "embed-message" notları:
+# TR: - discord-webhook=true ve webhook-url geçerliyse bu satırlar tek embed açıklaması olarak gönderilir.
+# TR: - İlgili entry için embed kapatmak istiyorsanız [] kullanın.
 
 Commands:
-  daily1:
+  # EN: Runs every day at 23:59:59.
+  # TR: Her gün 23:59:59'da çalışır.
+  daily_restart_notice:
     command:
-      - 'mm mobs spawn SalamanderMelee 1 world_nether,-7,102,134,250,50'
-      - 'rm reset hif'
+      - 'say Server restart in 1 minute.'
     schedule:
       - 'DAILY; 23:59:59'
     embed-message:
-      - 'deneme'
+      - 'Daily restart notice executed at 23:59:59.'
 
-  daily_04_00:
+  # EN: Runs on Friday evening.
+  # TR: Cuma akşamı çalışır.
+  friday_reward:
     command:
-      - 'mm mobs spawn SalamanderMelee 1 world_nether,-7,102,134,250,50'
-      - 'rm reset hif'
+      - 'say Weekly reward event started!'
+      - 'give @a diamond 1'
     schedule:
-      - 'DAILY; 04:00:00'
+      - 'FRIDAY; 20:30:00'
     embed-message: []
 
-  daily_08_00:
+  # EN: Example with multiple schedules in one entry.
+  # EN: Same command block runs at both times below.
+  # TR: Tek entry içinde birden fazla schedule örneği.
+  # TR: Aşağıdaki iki saatte aynı komut bloğu çalışır.
+  two_times_daily:
     command:
-      - 'mm mobs spawn SalamanderMelee 1 world_nether,-7,102,134,250,50'
-      - 'rm reset hif'
-    schedule:
-      - 'DAILY; 08:00:00'
-    embed-message: []
-
-  daily_10_00:
-    command:
-      - 'eliteboss spawn boguk-kral 161 3 -272 atlantis'
-    schedule:
-      - 'DAILY; 10:00:00'
-    embed-message: []
-
-  daily_10_30:
-    command:
-      - 'killall named atlantis'
-    schedule:
-      - 'DAILY; 10:30:00'
-    embed-message: []
-
-  daily_12_00:
-    command:
-      - 'mm mobs spawn SalamanderMelee 1 world_nether,-7,102,134,250,50'
-      - 'rm reset hif'
-      - 'eliteboss spawn donkey -215 42 566 boss'
+      - 'say This task runs twice a day.'
     schedule:
       - 'DAILY; 12:00:00'
-    embed-message: []
-
-  daily_12_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 12:30:00'
-    embed-message: []
-
-  daily_13_00:
-    command:
-      - 'eliteboss spawn cadi -215 42 586 boss'
-    schedule:
-      - 'DAILY; 13:00:00'
-    embed-message: []
-
-  daily_13_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 13:30:00'
-    embed-message: []
-
-  daily_14_00:
-    command:
-      - 'eliteboss spawn boguk-kral 161 3 -272 atlantis'
-      - 'eliteboss spawn pillager -195 42 566 boss'
-    schedule:
-      - 'DAILY; 14:00:00'
-    embed-message: []
-
-  daily_14_30:
-    command:
-      - 'killall named atlantis'
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 14:30:00'
-    embed-message: []
-
-  daily_15_00:
-    command:
-      - 'eliteboss spawn golem -195 42 586 boss'
-    schedule:
-      - 'DAILY; 15:00:00'
-    embed-message: []
-
-  daily_15_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 15:30:00'
-    embed-message: []
-
-  daily_16_00:
-    command:
-      - 'mm mobs spawn SalamanderMelee 1 world_nether,-7,102,134,250,50'
-      - 'rm reset hif'
-      - 'eliteboss spawn donkey -215 42 566 boss'
-    schedule:
-      - 'DAILY; 16:00:00'
-    embed-message: []
-
-  daily_16_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 16:30:00'
-    embed-message: []
-
-  daily_17_00:
-    command:
-      - 'eliteboss spawn cadi -215 42 586 boss'
-    schedule:
-      - 'DAILY; 17:00:00'
-    embed-message: []
-
-  daily_17_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 17:30:00'
-    embed-message: []
-
-  daily_18_00:
-    command:
-      - 'eliteboss spawn boguk-kral 161 3 -272 atlantis'
-      - 'eliteboss spawn pillager -195 42 566 boss'
-    schedule:
       - 'DAILY; 18:00:00'
-    embed-message: []
+    embed-message:
+      - 'two_times_daily entry executed.'
 
-  daily_18_30:
-    command:
-      - 'killall named atlantis'
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 18:30:00'
-    embed-message: []
-
-  daily_19_00:
-    command:
-      - 'serveritem giveall hediye'
-      - 'eliteboss spawn golem -195 42 586 boss'
-    schedule:
-      - 'DAILY; 19:00:00'
-    embed-message: []
-
-  daily_19_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 19:30:00'
-    embed-message: []
-
-  daily_20_00:
-    command:
-      - 'mm mobs spawn SalamanderMelee 1 world_nether,-7,102,134,250,50'
-      - 'rm reset hif'
-      - 'eliteboss spawn donkey -215 42 566 boss'
-    schedule:
-      - 'DAILY; 20:00:00'
-    embed-message: []
-
-  daily_20_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 20:30:00'
-    embed-message: []
-
-  daily_21_00:
-    command:
-      - 'eliteboss spawn cadi -215 42 586 boss'
-    schedule:
-      - 'DAILY; 21:00:00'
-    embed-message: []
-
-  daily_21_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 21:30:00'
-    embed-message: []
-
-  daily_22_00:
-    command:
-      - 'eliteboss spawn pillager -195 42 566 boss'
-    schedule:
-      - 'DAILY; 22:00:00'
-    embed-message: []
-
-  daily_22_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 22:30:00'
-    embed-message: []
-
-  daily_23_00:
-    command:
-      - 'eliteboss spawn golem -195 42 586 boss'
-    schedule:
-      - 'DAILY; 23:00:00'
-    embed-message: []
-
-  daily_23_30:
-    command:
-      - 'killall named boss'
-    schedule:
-      - 'DAILY; 23:30:00'
-    embed-message: []
-
+# --------------------------------------------------
+# Lang
+# --------------------------------------------------
+# EN: Messages used by plugin command responses.
+# TR: Eklenti komut yanıtlarında kullanılan mesajlar.
 Lang:
-  Error_alert: '&cGonderilemedi, bir sey yazmali veya yetkiye sahip olmalisin.!'
-  Console_alert: '&cBu komut konsoldan calistirilamaz.'
+  Error_alert: '&cYou do not have permission.'
+  Console_alert: '&cThis command cannot be used from console.'
 
-# Modify the permissions as you prefer. / Modifica los permisos segun prefieras.
+# --------------------------------------------------
+# Permission
+# --------------------------------------------------
+# EN: Permission node required for /sctimer commands.
+# TR: /sctimer komutları için gerekli yetki nodu.
 Permission:
   scTimer_permission: 'sctimer.admin'
