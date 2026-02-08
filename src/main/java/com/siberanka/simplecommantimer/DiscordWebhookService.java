@@ -56,8 +56,8 @@ public final class DiscordWebhookService {
             return;
         }
 
-        final String description = joinLines(lines);
-        if (description.trim().isEmpty()) {
+        final String title = joinLines(lines);
+        if (title.trim().isEmpty()) {
             return;
         }
 
@@ -65,7 +65,7 @@ public final class DiscordWebhookService {
             @Override
             public void run() {
                 Integer color = parseHexColor(configuredCommand.getWebhookColor());
-                sendWithRetry(configuredCommand.getId(), description, color);
+                sendWithRetry(configuredCommand.getId(), title, color);
             }
         });
     }
@@ -74,11 +74,11 @@ public final class DiscordWebhookService {
         executor.shutdownNow();
     }
 
-    private void sendWithRetry(String entryId, String description, Integer color) {
+    private void sendWithRetry(String entryId, String title, Integer color) {
         Exception lastException = null;
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
             try {
-                int code = postWebhook(description, color);
+                int code = postWebhook(title, color);
                 if (code >= 200 && code < 300) {
                     return;
                 }
@@ -102,7 +102,7 @@ public final class DiscordWebhookService {
         }
     }
 
-    private int postWebhook(String description, Integer color) throws Exception {
+    private int postWebhook(String title, Integer color) throws Exception {
         HttpURLConnection connection = (HttpURLConnection) new URL(webhookUrl).openConnection();
         connection.setRequestMethod("POST");
         connection.setConnectTimeout(5000);
@@ -110,7 +110,7 @@ public final class DiscordWebhookService {
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
-        String payload = buildPayload(description, color);
+        String payload = buildPayload(title, color);
         byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
 
         OutputStream outputStream = connection.getOutputStream();
@@ -131,11 +131,10 @@ public final class DiscordWebhookService {
         return responseCode;
     }
 
-    private String buildPayload(String description, Integer color) {
+    private String buildPayload(String title, Integer color) {
         StringBuilder builder = new StringBuilder();
         builder.append("{\"embeds\":[{");
-        builder.append("\"title\":\"").append(escapeJson("webhook-message")).append("\",");
-        builder.append("\"description\":\"").append(escapeJson(description)).append("\",");
+        builder.append("\"title\":\"").append(escapeJson(title)).append("\",");
         if (color != null) {
             builder.append("\"color\":").append(color.intValue()).append(",");
         }
@@ -187,7 +186,7 @@ public final class DiscordWebhookService {
                 continue;
             }
             if (builder.length() > 0) {
-                builder.append("\\n");
+                builder.append(" ");
             }
             builder.append(line);
         }
