@@ -43,40 +43,40 @@ mvn clean package
 ### Configuration
 See `src/main/resources/config.yml` for the full example format.
 
-## Turkce
-SimpleCommandTimer, Paper `1.16 - 1.21.x` ve Folia `1.21.1` icin komut zamanlayici eklentisidir.
-Komutlari secilen saat dilimine gore gun/saat bazli calistirir ve entry bazli opsiyonel Discord webhook embed destegi sunar.
+## Türkçe
+SimpleCommandTimer, Paper `1.16 - 1.21.x` ve Folia `1.21.1` için komut zamanlayıcı eklentisidir.
+Komutları seçilen saat dilimine göre gün/saat bazlı çalıştırır ve girdi bazlı isteğe bağlı Discord webhook embed desteği sunar.
 
-### Ozellikler
-- Saat dilimi tabanli zamanlama (`time-zone`)
-- Gunluk ve haftalik zamanlama (`DAILY`, `MONDAY`...`SUNDAY`, Ispanyolca gun adlari dahil)
-- Gecici lag/freeze durumlarinda catch-up mantigi
-- Her schedule satiri ayni gun icinde en fazla 1 kez calisir
+### Özellikler
+- Saat dilimi tabanlı zamanlama (`time-zone`)
+- Günlük ve haftalık zamanlama (`DAILY`, `MONDAY`...`SUNDAY`, İspanyolca gün adları dâhil)
+- Geçici lag/freeze durumlarında catch-up mantığı
+- Her zamanlama satırı aynı gün içinde en fazla 1 kez çalışır
 - Folia uyumlu dispatch, Paper fallback
-- Entry bazli Discord webhook embed gonderimi ve hata durumunda 3 deneme
-- Asenkron GitHub surum kontrolu ve `sctimer.admin` yetkililerine bildirim
-- Oyuncuya gosterilen mesajlar icin eksiksiz config destegi
-- Sinirli PlaceholderAPI onbellegi, manuel tetikleme bekleme suresi ve webhook kuyrugu
-- Yalnizca resmi HTTPS Discord webhook adreslerine izin veren dogrulama
-- **PlaceholderAPI entegrasyonu** (Kalan sure ve en yakin komut tespiti)
+- Girdi bazlı Discord webhook embed gönderimi ve hata durumunda 3 deneme
+- Asenkron GitHub sürüm kontrolü ve `sctimer.admin` yetkililerine bildirim
+- Oyuncuya gösterilen mesajlar için eksiksiz config desteği
+- Sınırlı PlaceholderAPI önbelleği, manuel tetikleme bekleme süresi ve webhook kuyruğu
+- Yalnızca resmi HTTPS Discord webhook adreslerine izin veren doğrulama
+- **PlaceholderAPI entegrasyonu** (Kalan süre ve en yakın komut tespiti)
 
 ### Placeholder'lar
-[PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) eklentisinin yuklu olmasi gerekir.
-Zaman formatlari (son ekler) `config.yml` icerisinden kisisellestirilebilir (`Placeholder_Format.hours/minutes/seconds`).
+[PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) eklentisinin yüklü olması gerekir.
+Zaman biçimleri (son ekler) `config.yml` içerisinden kişiselleştirilebilir (`Placeholder_Format.hours/minutes/seconds`).
 
-- `%sctimer_<entry_id>_hours%` - Belirli bir gorev icin kalan saat bilgisini dondurur.
-- `%sctimer_<entry_id>_minutes%` - Kalan dakikayi dondurur.
-- `%sctimer_<entry_id>_seconds%` - Kalan saniyeyi dondurur.
-- `%sctimer_<entry_id>_full%` - Tam formati dondurur (orn. `1sa 30dk 15sn`).
-- `%sctimer_closest_name%` - En yakin zamanda calisacak olan komutun `entry_id` sini dondurur.
-- `%sctimer_closest_hours%`, `..._minutes%`, `..._seconds%`, `..._full%` - En yakin komutun ilgili sure formatlarini dondurur.
+- `%sctimer_<entry_id>_hours%` - Belirli bir görev için kalan saat bilgisini döndürür.
+- `%sctimer_<entry_id>_minutes%` - Kalan dakikayı döndürür.
+- `%sctimer_<entry_id>_seconds%` - Kalan saniyeyi döndürür.
+- `%sctimer_<entry_id>_full%` - Tam biçimi döndürür (örn. `1sa 30dk 15sn`).
+- `%sctimer_closest_name%` - En yakın zamanda çalışacak komutun `entry_id` değerini döndürür.
+- `%sctimer_closest_hours%`, `..._minutes%`, `..._seconds%`, `..._full%` - En yakın komutun ilgili süre biçimlerini döndürür.
 
 ### Derleme
 ```bash
 mvn clean package
 ```
 
-### Cikti
+### Çıktı
 - `target/SimpleCommandTimer-1.1.0.jar`
 
 ### Komut
@@ -84,6 +84,6 @@ mvn clean package
 - `/sctimer trigger <entry_id>`
 
 ### Konfig
-Tam ornek format icin `src/main/resources/config.yml` dosyasina bakin.
+Tam örnek biçim için `src/main/resources/config.yml` dosyasına bakın.
 
 
