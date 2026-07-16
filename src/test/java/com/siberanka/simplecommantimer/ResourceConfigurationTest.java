@@ -17,7 +17,7 @@ class ResourceConfigurationTest {
         YamlConfiguration plugin = load("plugin.yml");
         YamlConfiguration config = load("config.yml");
 
-        assertEquals("1.1.0", plugin.getString("version"));
+        assertEquals("1.2.0", plugin.getString("version"));
         assertTrue(plugin.contains("permissions.sctimer.admin"));
         assertEquals("siberanka/SimpleCommandTimer-remake",
                 config.getString("Update_Check.repository"));

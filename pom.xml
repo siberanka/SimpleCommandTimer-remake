@@ -5,7 +5,7 @@
 
     <groupId>com.simplecommandtimer</groupId>
     <artifactId>SimpleCommandTimer</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>SimpleCommandTimer</name>
@@ -15,6 +15,9 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <server.api.groupId>org.spigotmc</server.api.groupId>
+        <server.api.artifactId>spigot-api</server.api.artifactId>
+        <server.api.version>1.16.5-R0.1-SNAPSHOT</server.api.version>
     </properties>
 
     <repositories>
@@ -30,9 +33,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <groupId>${server.api.groupId}</groupId>
+            <artifactId>${server.api.artifactId}</artifactId>
+            <version>${server.api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -64,8 +67,37 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.2</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Built-For>Paper 1.16.5-26.x; Folia 1.21.x-26.x</Built-For>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>paper-26</id>
+            <properties>
+                <server.api.groupId>io.papermc.paper</server.api.groupId>
+                <server.api.artifactId>paper-api</server.api.artifactId>
+                <server.api.version>26.1.2.build.74-stable</server.api.version>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>papermc</id>
+                    <url>https://repo.papermc.io/repository/maven-public/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 </project>
 
 

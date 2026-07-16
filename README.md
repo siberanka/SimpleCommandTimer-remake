@@ -1,7 +1,7 @@
 # SimpleCommandTimer
 
 ## English
-SimpleCommandTimer is a command scheduler plugin for Paper `1.16 - 1.21.x` and Folia `1.21.1`.
+SimpleCommandTimer is a command scheduler plugin for Paper `1.16.5 - 1.21.x / 26.x` and Folia `1.21.x / 26.x`.
 It runs commands by day/time in a selected timezone, supports daily schedules, and includes optional Discord webhook embeds per entry.
 
 ### Features
@@ -10,6 +10,7 @@ It runs commands by day/time in a selected timezone, supports daily schedules, a
 - Catch-up logic for temporary lag/freeze periods
 - Same entry executes only once per day for each schedule line
 - Folia-safe dispatch with Paper fallback
+- Paper/Folia 26.x global and entity scheduler support
 - Optional Discord webhook embed per command entry with 3 retries
 - Asynchronous GitHub release checks with `sctimer.admin` notifications
 - Configurable player-facing messages (including update notifications)
@@ -33,8 +34,15 @@ Time formats (suffixes) can be customized via `config.yml` (`Placeholder_Format.
 mvn clean package
 ```
 
+Paper/Folia 26.x compatibility build (requires Java 25):
+```bash
+mvn -Ppaper-26 clean package
+```
+
+Paper/Folia 26.1+ servers require Java 25. Paper 1.20 through 1.21.11 use Java 21; the default legacy-compatible artifact remains Java 8 bytecode.
+
 ### Output
-- `target/SimpleCommandTimer-1.1.0.jar`
+- `target/SimpleCommandTimer-1.2.0.jar`
 
 ### Command
 - `/sctimer reload`
@@ -44,7 +52,7 @@ mvn clean package
 See `src/main/resources/config.yml` for the full example format.
 
 ## Türkçe
-SimpleCommandTimer, Paper `1.16 - 1.21.x` ve Folia `1.21.1` için komut zamanlayıcı eklentisidir.
+SimpleCommandTimer, Paper `1.16.5 - 1.21.x / 26.x` ve Folia `1.21.x / 26.x` için komut zamanlayıcı eklentisidir.
 Komutları seçilen saat dilimine göre gün/saat bazlı çalıştırır ve girdi bazlı isteğe bağlı Discord webhook embed desteği sunar.
 
 ### Özellikler
@@ -53,6 +61,7 @@ Komutları seçilen saat dilimine göre gün/saat bazlı çalıştırır ve gird
 - Geçici lag/freeze durumlarında catch-up mantığı
 - Her zamanlama satırı aynı gün içinde en fazla 1 kez çalışır
 - Folia uyumlu dispatch, Paper fallback
+- Paper/Folia 26.x global ve entity scheduler desteği
 - Girdi bazlı Discord webhook embed gönderimi ve hata durumunda 3 deneme
 - Asenkron GitHub sürüm kontrolü ve `sctimer.admin` yetkililerine bildirim
 - Oyuncuya gösterilen mesajlar için eksiksiz config desteği
@@ -76,8 +85,15 @@ Zaman biçimleri (son ekler) `config.yml` içerisinden kişiselleştirilebilir (
 mvn clean package
 ```
 
+Paper/Folia 26.x uyumluluk derlemesi (Java 25 gerektirir):
+```bash
+mvn -Ppaper-26 clean package
+```
+
+Paper/Folia 26.1+ sunucuları Java 25 gerektirir. Paper 1.20 ile 1.21.11 arası Java 21 kullanır; varsayılan geriye uyumlu artifact Java 8 bytecode olarak kalır.
+
 ### Çıktı
-- `target/SimpleCommandTimer-1.1.0.jar`
+- `target/SimpleCommandTimer-1.2.0.jar`
 
 ### Komut
 - `/sctimer reload`
