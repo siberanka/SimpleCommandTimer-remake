@@ -11,6 +11,10 @@ It runs commands by day/time in a selected timezone, supports daily schedules, a
 - Same entry executes only once per day for each schedule line
 - Folia-safe dispatch with Paper fallback
 - Optional Discord webhook embed per command entry with 3 retries
+- Asynchronous GitHub release checks with `sctimer.admin` notifications
+- Configurable player-facing messages (including update notifications)
+- Bounded PlaceholderAPI cache, manual-trigger cooldown, and bounded webhook queue
+- Official HTTPS Discord webhook validation
 - **PlaceholderAPI integration** (Remaining time and closest entry detection)
 
 ### Placeholders
@@ -30,10 +34,11 @@ mvn clean package
 ```
 
 ### Output
-- `target/SimpleCommandTimer-1.0.5.jar`
+- `target/SimpleCommandTimer-1.1.0.jar`
 
 ### Command
 - `/sctimer reload`
+- `/sctimer trigger <entry_id>`
 
 ### Configuration
 See `src/main/resources/config.yml` for the full example format.
@@ -49,6 +54,10 @@ Komutlari secilen saat dilimine gore gun/saat bazli calistirir ve entry bazli op
 - Her schedule satiri ayni gun icinde en fazla 1 kez calisir
 - Folia uyumlu dispatch, Paper fallback
 - Entry bazli Discord webhook embed gonderimi ve hata durumunda 3 deneme
+- Asenkron GitHub surum kontrolu ve `sctimer.admin` yetkililerine bildirim
+- Oyuncuya gosterilen mesajlar icin eksiksiz config destegi
+- Sinirli PlaceholderAPI onbellegi, manuel tetikleme bekleme suresi ve webhook kuyrugu
+- Yalnizca resmi HTTPS Discord webhook adreslerine izin veren dogrulama
 - **PlaceholderAPI entegrasyonu** (Kalan sure ve en yakin komut tespiti)
 
 ### Placeholder'lar
@@ -68,10 +77,11 @@ mvn clean package
 ```
 
 ### Cikti
-- `target/SimpleCommandTimer-1.0.5.jar`
+- `target/SimpleCommandTimer-1.1.0.jar`
 
 ### Komut
 - `/sctimer reload`
+- `/sctimer trigger <entry_id>`
 
 ### Konfig
 Tam ornek format icin `src/main/resources/config.yml` dosyasina bakin.
